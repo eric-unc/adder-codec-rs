@@ -370,7 +370,9 @@ impl PlayerState {
         let (player_tx, player_rx) = bounded(60);
 
         rayon::spawn(move || loop {
+            println!("About to consume!");
             let res = player.consume_source();
+            println!("Consumed!");
             match player_tx.send(res) {
                 Ok(_) => {}
                 Err(_) => {
